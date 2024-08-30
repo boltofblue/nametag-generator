@@ -5,17 +5,26 @@ import "./styles.css";
 
 class App extends Component {
   state = {
-    names: ["Embie", "Togepi", "Squish", "Jayci", "Cyndaquil"]
+    names: []
   };
 addName = (name) => {
     const newNames = [name, ...this.state.names];
     this.setState({ names: newNames });
 };
-removeName = (clickedIndex) => {
-    const filterCallback = (_, index) => index !== clickedIndex;
-    const newNames = this.state.names.filter(filterCallback);
-    this.setState({ names: newNames });
-  };
+
+componentDidUpdated() {
+    const savedNamesString = JSON.stringify(this.state.names);
+    localStorage.setItem("savedNames", savedNamesString);
+}
+
+componentDidMount() {
+    const savedNamesString = localStorage.getItem("savedNames");
+    if (savedNamesString) {
+        const savedNames = JSON.parse(savedNamesString);
+        this.setState({ names: savedNames });
+    }
+}
+
   render() {
     return (
       <div className="App">
