@@ -8,13 +8,19 @@ The JSX returned should consist of:
     - a p element with className attribute of "subtitle" and the inner text of "my name is"
     - a h2 element with className attribute of "name" and the inner text of your name
 */
-const NameTag = props => (
+const NameTag = (props) => {
+  const deleteByIndex = () => props.removeName(props.index);
+  return (
   <div className="name-tag">
     <h3 className="title">HELLO</h3>
     <p className="subtitle">my name is</p>
     <h2 className="name">{props.name}</h2>
+    <span onClick={deleteByIndex} className="name-tag__delete">
+      x
+    </span>
   </div>
 );
+};
 /* export our functional component definition to be 
 imported then rendered within another module */
 export default NameTag;
