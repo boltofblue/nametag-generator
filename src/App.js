@@ -4,25 +4,20 @@ import "./styles.css";
 
 class App extends Component {
   state = {
-    nameData: [
-      { id: 1, name: "Jayci" },
-      { id: 2, name: "Embie" },
-      { id: 3, name: "Squish" },
-      { id: 4, name: "Togepi" },
-      { id: 5, name: "Pikachu" }
-    ]
+    names: ["Embie", "Togepi", "Squish", "Jayci", "Cyndaquil"]
   };
 
-  renderNameTag = (nameObject) => {
-    return <NameTag key={nameObject.id} name={nameObject.name} />;
+removeName = (clickedIndex) => {
+    const filterCallback = (_, index) => index !== clickedIndex;
+    const newNames = this.state.names.filter(filterCallback);
+    this.setState({ names: newNames });
   };
-
   render() {
-    const NameTagElements = this.state.nameData.map(this.renderNameTag);
     return (
       <div className="App">
         <h1>Name Tag Generator</h1>
-        {NameTagElements}
+        <UserInput />
+        <NameTagList names={this.state.names} removeName={this.removeName} />
       </div>
     );
   }
